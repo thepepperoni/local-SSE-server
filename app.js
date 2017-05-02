@@ -17,8 +17,8 @@ app.get('/connect', function(req, res){
     });
 
     setInterval(function(){
-      console.log('writing ' + testdata);
-res.write('data: ' + JSON.stringify({ msg : testdata }) + '\n\n');
+		console.log('writing ' + testdata);
+		res.write('data: ' + JSON.stringify({ msg : testdata }) + '\n\n');
     }, 1000);
 });
 
@@ -28,7 +28,7 @@ app.post('/message', function(req, res) {
 });
 */
 
-var port = 8080;
-app.listen(port, function() {
-  console.log("Running at Port " + port);
+
+app.listen(8080, function() {
+  console.log("Running at Port 8080" );
 });
