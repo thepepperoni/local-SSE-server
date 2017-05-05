@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 var testdata = 1;
 var y = 210;
 var i =1;
+var stringData ="";
 var data = [[1,  1500],
     [2,  900],
     [3,  1300],
@@ -36,14 +37,15 @@ var data = [[1,  1500],
   ];
 
 app.get('/connect', function(req, res){
+
     res.writeHead(200, {
       'Connection': 'keep-alive',
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
 	  'Access-Control-Allow-Origin': 'http://localhost:4200'
     });
-	
-    setInterval(function(){
+	var interval = setInterval(function(){
+
 		testdata++;
 		if(i==24){
 			i=1;
@@ -52,7 +54,12 @@ app.get('/connect', function(req, res){
 		res.write("data: {\"x\":"+testdata+",\"y\":"+data[i][1]+" } \n\n");
 		i++;
 		
-    }, 3000);
+    }, 6000);
+	
+	req.connection.addListener("close", function () {
+      clearInterval(interval);
+    }, false);
+	
 });
 
 /*
